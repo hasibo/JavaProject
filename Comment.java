@@ -10,6 +10,14 @@ public class Comment extends Message{
 		this.pidMessage=pidMessage;
 	}
 	
+	public int getPidCommentaire() {
+		return this.pidCommentaire;
+	}
+	
+	public int getPidMessage() {
+		return this.pidMessage;
+	}
+	
 	public String toString() {
 		return "Commentaire de "+super.getUser()+" du "+super.getDate()+" : "+super.getMessage();
 	}
