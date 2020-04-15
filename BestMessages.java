@@ -16,7 +16,13 @@ import java.util.Date;
  *
  */
 
-public class BestMessages implements Runnable{
+public class BestMessages extends Thread{
+	
+	private ArrayList<Message> resultatBest3messages;
+	
+	public ArrayList<Message> getBest3messages(){
+		return this.resultatBest3messages;
+	}
 	
 	/**
 	 * 
@@ -162,12 +168,13 @@ public class BestMessages implements Runnable{
             	int[] vOI=valueOfImportance(messagesLus,commentairesDeComLus,commentairesLus);
             	//contient les 3 meilleurs messages
             	ArrayList<Message> BestOf3=BestOfMessage(messagesLus,vOI);
-            	System.out.println(BestOf3);
+            	this.resultatBest3messages=BestOf3;
             }
           //Boucle pour continuer à chercher les 3 meilleurs messages même quand on a lu tout le fichier
           while(true) {
             	int[] vOI=valueOfImportance(messagesLus,commentairesDeComLus,commentairesLus);
             	ArrayList<Message> BestOf3=BestOfMessage(messagesLus,vOI);
+            	this.resultatBest3messages=BestOf3;
             }
             
 
