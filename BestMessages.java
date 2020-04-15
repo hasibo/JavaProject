@@ -20,6 +20,11 @@ public class BestMessages extends Thread{
 	
 	private ArrayList<Message> resultatBest3messages;
 	
+	/**
+	 * 
+	 * @return retourne le resultat contenant les 3 meilleurs messages
+	 */
+	
 	public ArrayList<Message> getBest3messages(){
 		return this.resultatBest3messages;
 	}
