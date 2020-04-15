@@ -1,12 +1,12 @@
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.StringTokenizer;
-import java.util.Timer;
-import java.util.TimerTask;
+/**
+ * Classe qui créer une instance du thread pour trouver les 3 meilleurs messages
+ * @author Haseeb JAVAID,Mathieu JUGI
+ *
+ */
 
 public class TestBestMessages {
 	public static void main(String[] args){
-		Thread thread = new Thread(new BestMessages());
-	    thread.start();
+		Thread threadBestMessages = new Thread(new BestMessages());
+	    threadBestMessages.start();
 	}
 }
