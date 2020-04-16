@@ -12,7 +12,7 @@ public class Client {
 	        try {
 	        	Remote r = Naming.lookup("rmi://127.0.0.1/bestMessage");
 	        	if(r instanceof BestMessages) {
-	        		ArrayList<Message> msgBestMessage=((BestMessages) r).getBestMessage();
+	        		ArrayList<Message> msgBestMessages=((BestMessages) r).getBestMessage();
 	        	}
 	        } catch (MalformedURLException e) {
 	            e.printStackTrace();
