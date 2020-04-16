@@ -1,16 +1,26 @@
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RMISecurityManager;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 public class Client {
 	 public static void main(String[] argv) {
+		 System.out.println("Lancement du client");
 	        try {
-	            Registry registry = LocateRegistry.getRegistry(10000);
-	            BestMessages msgBestStub = (BestMessages) registry.lookup("bestMessage");
-	            ArrayList<Message> msgBestMessage=msgBestStub.getBestMessage();
-	            System.out.println(msgBestMessage); // Affiche les 3 messages
-	        } catch (Exception e) {
+	        	Remote r = Naming.lookup("rmi://127.0.0.1/bestMessage");
+	        	if(r instanceof BestMessages) {
+	        		ArrayList<Message> msgBestMessage=((BestMessages) r).getBestMessage();
+	        	}
+	        } catch (MalformedURLException e) {
 	            e.printStackTrace();
+	        } catch (RemoteException e) {
+	          e.printStackTrace();
+	        } catch (NotBoundException e) {
+	          e.printStackTrace();
 	        }
+	        System.out.println("Fin du client");
 	    }
 }
