@@ -1,7 +1,11 @@
 import java.util.ArrayList;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
+import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 public class Server {
 	public static void main(String[] args) {
@@ -16,14 +20,20 @@ public class Server {
                 e.printStackTrace();
             }
 	    	try {
-	    		//On instancie l'objet à envoyer au client et on génère un stub sur le port 1000
-		    	BestMessages msgBestSkeleton=(BestMessages) UnicastRemoteObject.exportObject(new BestMessagesImpl(threadBestMessages.getBest3messages()),1000);
-		    	Registry registry = LocateRegistry.createRegistry(10000);
-		    	registry.rebind("bestMessage", msgBestSkeleton); // publie notre instance sous le nom bestMessage
+	    		LocateRegistry.createRegistry(1099);
+	    		BestMessagesImpl bestMessagesImpl = new BestMessagesImpl(threadBestMessages.getBest3messages());
+	    		String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + "/bestMessage";
+	    		System.out.println("Enregistrement de l'objet avec l'url : " + url);
+	    		Naming.rebind(url, bestMessagesImpl);
+	    		System.out.println("Serveur lancé");
 		    	
-	    	}catch (Exception e) {
-	            e.printStackTrace();
-	        }
+	    	}catch (RemoteException e) {
+	    	    e.printStackTrace();
+	    	} catch (MalformedURLException e) {
+	    	    e.printStackTrace();
+	    	} catch (UnknownHostException e) {
+	    	    e.printStackTrace();
+	    	}
 	    }
 	}
 }
